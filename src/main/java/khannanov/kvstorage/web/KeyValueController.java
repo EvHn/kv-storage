@@ -1,6 +1,6 @@
 package khannanov.kvstorage.web;
 
-import khannanov.kvstorage.data.Value;
+import khannanov.kvstorage.data.History;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import java.util.Map;
 @RequestMapping("/")
 public class KeyValueController {
 
-    private Map<String, Value> map = new HashMap<>();
+    private Map<String, History> map = new HashMap<>();
 
     @GetMapping("/kvmap")
     public String getKVMap()

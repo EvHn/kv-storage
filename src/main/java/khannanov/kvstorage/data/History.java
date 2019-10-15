@@ -5,15 +5,15 @@ import lombok.Data;
 import java.util.*;
 
 @Data
-public class Value {
+public class History {
     private final List<State> valueVersionList;
 
-    public static Value createValue(State lines)
+    public static History createHistory(State firstState)
     {
-        return new Value(lines);
+        return new History(firstState);
     }
 
-    private Value(State state) {
+    private History(State state) {
         valueVersionList = new ArrayList<>();
         commit(state);
     }

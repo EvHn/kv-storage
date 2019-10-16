@@ -1,22 +1,26 @@
 package khannanov.kvstorage.data;
 
+import lombok.Data;
+
+import java.util.List;
+
+@Data
 public class StateManager {
-    private State state;
-    private History history;
+    private IState state;
+    private IState newState;
+    private List<IChange> history;
+    private IDiffer differ;
 
-    public StateManager set(Integer number, Line line) {
-        state.set(number, line);
-        return this;
-    }
-
-    public StateManager insert(Integer afterLine, Line line) {
-        state.insert(afterLine, line);
+    public StateManager setState(IState state) {
+        newState = state;
         return this;
     }
 
     public StateManager commit() {
-        history.commit(state);
-        state = State.copy(state);
+        if(state.equals(newState)) {
+            history.add(differ.calc(state, newState));
+            state = newState;
+        }
         return this;
     }
 }

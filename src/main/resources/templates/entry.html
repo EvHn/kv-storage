@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New entry</title>
+</head>
+<body>
+<form method="POST" th:action="@{/entry}" th:object="${entry}">
+    <label >New key </label>
+    <input type="text" th:field="${entry.key}"/>
+    <br/>
+    <label >New value </label>
+    <input type="text" th:field="${entry.value}"/>
+    <br/>
+    <input type="submit" value="add new entry"/>
+</form>
+</body>
+</html>

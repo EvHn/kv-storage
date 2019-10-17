@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Key-Value storage</title>
 </head>
 <body>
+<label></label>
+<div th:each="entry : ${entries}">
+    <span th:text="${entry.key}"></span>
+    <span th:text="${entry.value}"></span>
 
+</div>
 </body>
 </html>

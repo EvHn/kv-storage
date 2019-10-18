@@ -2,8 +2,6 @@ package khannanov.kvstorage.data;
 
 import khannanov.kvstorage.data.simple.SimpleDataFactory;
 import lombok.Getter;
-import org.apache.catalina.Manager;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +13,20 @@ public class StateManager {
     private Map<String, History> map = new HashMap<>();
     private IDiffer differ;
     private IDataFactory dataFactory = new SimpleDataFactory();
+    private static volatile StateManager instance;
 
+    public static StateManager getInstance() {
+        StateManager localeInstance = instance;
+        if(localeInstance == null) {
+            synchronized (StateManager.class) {
+                localeInstance = instance;
+                if(localeInstance == null) {
+                    instance = localeInstance = new StateManager();
+                }
+            }
+        }
+        return localeInstance;
+    }
     public void add(Entry entry) {
         String key = entry.getKey();
         String state = entry.getValue();

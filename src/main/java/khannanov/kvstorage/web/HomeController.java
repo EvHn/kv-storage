@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    public static StateManager stateManager = new StateManager();
+
+    private StateManager stateManager = StateManager.getInstance();
     @GetMapping("/")
     public String getEntries(Model model) {
         model.addAttribute("entries", stateManager.getEntryList());

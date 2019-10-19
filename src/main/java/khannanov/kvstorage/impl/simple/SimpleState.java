@@ -1,6 +1,6 @@
-package khannanov.kvstorage.data.simple;
+package khannanov.kvstorage.impl.simple;
 
-import khannanov.kvstorage.data.IState;
+import khannanov.kvstorage.impl.IState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

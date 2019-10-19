@@ -1,6 +1,4 @@
-package khannanov.kvstorage.data;
-
-import khannanov.kvstorage.data.IState;
+package khannanov.kvstorage.impl;
 
 public interface IDataFactory {
     public IState createState(String string);

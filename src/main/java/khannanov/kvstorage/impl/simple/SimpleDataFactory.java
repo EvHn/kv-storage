@@ -1,8 +1,8 @@
-package khannanov.kvstorage.data.simple;
+package khannanov.kvstorage.impl.simple;
 
-import khannanov.kvstorage.data.IDataFactory;
-import khannanov.kvstorage.data.IDiffer;
-import khannanov.kvstorage.data.IState;
+import khannanov.kvstorage.impl.IDataFactory;
+import khannanov.kvstorage.impl.IDiffer;
+import khannanov.kvstorage.impl.IState;
 
 public class SimpleDataFactory implements IDataFactory {
     @Override

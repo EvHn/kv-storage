@@ -1,7 +1,11 @@
-package khannanov.kvstorage.data;
+package khannanov.kvstorage.impl;
 
-import khannanov.kvstorage.data.simple.SimpleDataFactory;
+import khannanov.kvstorage.data.Entry;
+import khannanov.kvstorage.data.EntryHistory;
+import khannanov.kvstorage.impl.simple.SimpleDataFactory;
 import lombok.Getter;
+
+import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,20 +31,29 @@ public class StateManager {
         }
         return localeInstance;
     }
-    public void add(Entry entry) {
-        String key = entry.getKey();
-        String state = entry.getValue();
+
+    private StateManager() {
+        differ = dataFactory.createDiffer();
+    }
+
+    public void add(String key,  String value) {
         if(map.containsKey(key)) {
-            map.get(key).setState(state);
+            History history = map.get(key);
+            history.setState(value);
+            history.commit();
         } else {
-            map.put(key, new History(dataFactory.createState(state)));
+            map.put(key, new History(dataFactory.createState(value)));
         }
     }
 
-    public List<Entry> getEntryList() {
-        List<Entry> list = new ArrayList<>();
-        map.forEach((key, history) -> list.add(new Entry(key, history.state.get())));
-        return list;
+    public List<String> getHistory(String key) {
+        return map.get(key).get();
+    }
+
+    public Map<String, String> getMap() {
+        Map<String, String> strMap = new HashMap<>();
+        map.forEach((s, history) -> strMap.put(s, history.getState()));
+        return strMap;
     }
 
     private class History {
@@ -62,6 +75,16 @@ public class StateManager {
 
         public String getCurrState() {
             return currState.get();
+        }
+
+        public List<String> get() {
+            List<String> strings = new ArrayList<>();
+            IState localState = state;
+            for(IChange ch : changes) {
+                strings.add(localState.get());
+                localState = ch.apply(state);
+            }
+            return strings;
         }
 
         public void commit() {

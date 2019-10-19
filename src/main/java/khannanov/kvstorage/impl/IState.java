@@ -1,4 +1,4 @@
-package khannanov.kvstorage.data;
+package khannanov.kvstorage.impl;
 
 public interface IState {
     public String get();

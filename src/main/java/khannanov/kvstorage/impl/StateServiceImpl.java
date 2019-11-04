@@ -1,41 +1,39 @@
 package khannanov.kvstorage.impl;
 
-import khannanov.kvstorage.data.Entry;
-import khannanov.kvstorage.data.EntryHistory;
 import khannanov.kvstorage.impl.simple.SimpleDataFactory;
 import lombok.Getter;
 
-import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Getter
-public class StateManager {
+public class StateServiceImpl implements IStateService {
 
     private Map<String, History> map = new HashMap<>();
-    private IDiffer differ;
-    private IDataFactory dataFactory = new SimpleDataFactory();
-    private static volatile StateManager instance;
+    private khannanov.kvstorage.impl.IDiffer differ;
+    private khannanov.kvstorage.impl.IDataFactory dataFactory = new SimpleDataFactory();
+    private static volatile StateServiceImpl instance;
 
-    public static StateManager getInstance() {
-        StateManager localeInstance = instance;
+    public static StateServiceImpl getInstance() {
+        StateServiceImpl localeInstance = instance;
         if(localeInstance == null) {
-            synchronized (StateManager.class) {
+            synchronized (StateServiceImpl.class) {
                 localeInstance = instance;
                 if(localeInstance == null) {
-                    instance = localeInstance = new StateManager();
+                    instance = localeInstance = new StateServiceImpl();
                 }
             }
         }
         return localeInstance;
     }
 
-    private StateManager() {
+    private StateServiceImpl() {
         differ = dataFactory.createDiffer();
     }
 
+    @Override
     public void add(String key,  String value) {
         if(map.containsKey(key)) {
             History history = map.get(key);
@@ -46,10 +44,21 @@ public class StateManager {
         }
     }
 
+    @Override
     public List<String> getHistory(String key) {
-        return map.get(key).get();
+        if(map.containsKey(key)) {
+            return map.get(key).get();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
+    @Override
+    public void delete(String key) {
+        throw new RuntimeException("No supported yet");
+    }
+
+    @Override
     public Map<String, String> getMap() {
         Map<String, String> strMap = new HashMap<>();
         map.forEach((s, history) -> strMap.put(s, history.getState()));
@@ -57,11 +66,11 @@ public class StateManager {
     }
 
     private class History {
-        private IState state;
-        private IState currState;
-        List<IChange> changes = new ArrayList<>();
+        private khannanov.kvstorage.impl.IState state;
+        private khannanov.kvstorage.impl.IState currState;
+        List<khannanov.kvstorage.impl.IChange> changes = new ArrayList<>();
 
-        public History(IState state) {
+        public History(khannanov.kvstorage.impl.IState state) {
             this.state = state;
         }
 
@@ -79,8 +88,8 @@ public class StateManager {
 
         public List<String> get() {
             List<String> strings = new ArrayList<>();
-            IState localState = state;
-            for(IChange ch : changes) {
+            khannanov.kvstorage.impl.IState localState = state;
+            for(khannanov.kvstorage.impl.IChange ch : changes) {
                 strings.add(localState.get());
                 localState = ch.apply(state);
             }

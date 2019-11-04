@@ -5,7 +5,7 @@
     <title>New entry</title>
 </head>
 <body>
-<form method="POST" th:action="@{/entry}" th:object="${entry}">
+<form method="POST" th:action="@{/new}" th:object="${entry}">
     <label >New key </label>
     <input type="text" th:field="${entry.key}"/>
     <br/>

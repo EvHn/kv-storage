@@ -1,7 +1,8 @@
 package khannanov.kvstorage.web;
 
 import khannanov.kvstorage.data.Entry;
-import khannanov.kvstorage.impl.IStateService;
+import khannanov.kvstorage.data.EntryHistory;
+import khannanov.kvstorage.data.Key;
 import khannanov.kvstorage.impl.StateServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,22 +11,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/new")
-public class EntryController {
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(EntryController.class);
-    private IStateService stateManager = StateServiceImpl.getInstance();
+@RequestMapping("/history")
+public class EntryHistoryController {
+    private StateServiceImpl stateManager = StateServiceImpl.getInstance();
 
     @GetMapping("/entry")
-    public String createState(Model model) {
+    public String setHistory(Model model) {
+        model.addAttribute("entryHistory",
+                new EntryHistory( stateManager.getHistory()));
         model.addAttribute("entry", new Entry());
-        return "entry";
+        return "entryHistory";
     }
 
     @PostMapping
-    public String setEntry(Entry entry) {
-        stateManager.add(entry.getKey(), entry.getValue());
-        return "redirect:/";
+    public String getHistory(Key key) {
+        return "redirect:/history/entry";
     }
-
-
 }

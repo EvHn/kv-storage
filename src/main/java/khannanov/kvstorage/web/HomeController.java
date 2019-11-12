@@ -1,24 +1,23 @@
 package khannanov.kvstorage.web;
 
-import khannanov.kvstorage.data.Entry;
-import khannanov.kvstorage.impl.IStateService;
-import khannanov.kvstorage.impl.StateServiceImpl;
+import khannanov.kvstorage.service.IStorageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class HomeController {
+    private IStorageService storageService;
 
-    private IStateService stateManager = StateServiceImpl.getInstance();
+    @Autowired
+    public void setStorageService(IStorageService storageService) {
+        this.storageService = storageService;
+    }
+
     @GetMapping("/")
     public String getEntries(Model model) {
-        List<Entry> list = new ArrayList<>();
-        stateManager.getMap().forEach((key, value) -> list.add(new Entry(key, value)));
-        model.addAttribute("entries", list);
+        model.addAttribute("entries", storageService.getEntries());
         return "home";
     }
 }

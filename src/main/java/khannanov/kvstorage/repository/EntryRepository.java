@@ -1,23 +1,27 @@
 package khannanov.kvstorage.repository;
 
-public class EntryRepository implements IRepository<EntryRepository> {
-    @Override
-    public void add(EntryRepository entryRepository) {
+import khannanov.kvstorage.model.Entry;
+import org.hibernate.Session;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
+
+public class EntryRepository extends AbstractRepository<Entry> {
+
+    public Entry getByKey(String key) {
+        return sessionFactory.getCurrentSession().get(Entry.class, key);
     }
 
-    @Override
-    public void delete(EntryRepository entryRepository) {
+    public List<Entry> getEntries() {
+        Session session = sessionFactory.getCurrentSession();
 
-    }
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Entry> cq = cb.createQuery(Entry.class);
+        Root<Entry> root = cq.from(Entry.class);
+        cq.select(root).orderBy(cb.asc(root.get(Entry.KEY)));
 
-    @Override
-    public void edit(EntryRepository entryRepository) {
-
-    }
-
-    @Override
-    public EntryRepository getById(int id) {
-        return null;
+        return session.createQuery(cq).getResultList();
     }
 }

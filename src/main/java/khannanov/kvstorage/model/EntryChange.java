@@ -1,4 +1,4 @@
-package khannanov.kvstorage.data;
+package khannanov.kvstorage.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,8 +17,14 @@ import javax.persistence.GeneratedValue;
 @DynamicInsert
 @Table(appliesTo = "entry_changes")
 public class EntryChange {
+    public static String ID = "id";
+    public static String KEY = "key";
+    public static String VALUE = "value";
+    public static String CREATED = "created";
     @GeneratedValue
     private int id;
+    @NonNull
+    private String key;
     @NonNull
     private String value;
     private String created;

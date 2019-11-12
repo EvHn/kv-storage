@@ -2,8 +2,8 @@ package khannanov.kvstorage.repository;
 
 
 public interface IRepository<Data> {
-    void add(Data data);
+    void save(Data data);
+    void saveOrUpdate(Data data);
     void delete(Data data);
     void edit(Data data);
-    Data getById(int id);
 }

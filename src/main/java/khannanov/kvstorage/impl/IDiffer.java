@@ -1,5 +1,9 @@
 package khannanov.kvstorage.impl;
 
+import khannanov.kvstorage.model.Entry;
+import khannanov.kvstorage.model.EntryChange;
+
 public interface IDiffer {
-    public IChange calc(IState oldState, IState newState);
+    EntryChange calc(Entry oldEntry, Entry newEntry);
+    Entry apply(Entry entry, EntryChange entryChange);
 }

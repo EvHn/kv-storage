@@ -1,35 +1,27 @@
 package khannanov.kvstorage.repository;
 
-import khannanov.kvstorage.data.EntryChange;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import khannanov.kvstorage.model.EntryChange;
+import org.hibernate.Session;
 
-public class EntryChangeRepository implements IRepository<EntryChange> {
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
-    private SessionFactory sessionFactory;
+public class EntryChangeRepository extends AbstractRepository<EntryChange> {
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory =sessionFactory;
-    }
-
-    @Override
-    public void add(EntryChange entryChange) {
-
-    }
-
-    @Override
-    public void delete(EntryChange entryChange) {
-
-    }
-
-    @Override
-    public void edit(EntryChange entryChange) {
-
-    }
-
-    @Override
     public EntryChange getById(int id) {
-        return null;
+        return sessionFactory.getCurrentSession().get(EntryChange.class, id);
+    }
+
+    public List<EntryChange> getByKey(String key) {
+        Session session = sessionFactory.getCurrentSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<EntryChange> cq = cb.createQuery(EntryChange.class);
+        Root<EntryChange> root = cq.from(EntryChange.class);
+        cq.select(root).where(cb.like(root.get(EntryChange.KEY), key)).orderBy(cb.asc(root.get(EntryChange.CREATED)));
+
+        return session.createQuery(cq).getResultList();
     }
 }

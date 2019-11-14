@@ -2,12 +2,14 @@ package khannanov.kvstorage.repository;
 
 import khannanov.kvstorage.model.Entry;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+@Repository
 public class EntryRepository extends AbstractRepository<Entry> {
 
     public Entry getByKey(String key) {

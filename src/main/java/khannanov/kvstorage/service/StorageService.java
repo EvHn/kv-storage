@@ -1,6 +1,7 @@
 package khannanov.kvstorage.service;
 
 import khannanov.kvstorage.impl.IDiffer;
+import khannanov.kvstorage.impl.SimpleDiffer;
 import khannanov.kvstorage.model.Entry;
 import khannanov.kvstorage.model.EntryChange;
 import khannanov.kvstorage.model.EntryHistory;
@@ -10,9 +11,7 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +23,7 @@ public class StorageService implements IStorageService {
     private IDiffer differ;
 
     @Autowired
-    public void setDiffer(IDiffer differ) {
+    public void setDiffer(SimpleDiffer differ) {
         this.differ = differ;
     }
 

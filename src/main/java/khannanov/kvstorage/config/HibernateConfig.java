@@ -27,8 +27,8 @@ public class HibernateConfig {
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("org.postgres.Driver");
-        dataSource.setUrl("jdbc:postgres:mem:db;DB_CLOSE_DELAY=-1");
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("dbc:postgresql://localhost:5432/kv_storage");
         dataSource.setUsername("kvs");
         dataSource.setPassword("kvs");
 
@@ -48,7 +48,7 @@ public class HibernateConfig {
         hibernateProperties.setProperty(
           "hibernate.hbm2ddl.auto", "create-drop");
         hibernateProperties.setProperty(
-          "hibernate.dialect", "org.hibernate.dialect.PostgresPlusDialect");
+          "hibernate.dialect", "org.hibernate.dialect.Postgres9Dialect");
 
         return hibernateProperties;
     }

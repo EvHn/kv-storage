@@ -2,7 +2,9 @@ package khannanov.kvstorage.impl;
 
 import khannanov.kvstorage.model.Entry;
 import khannanov.kvstorage.model.EntryChange;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SimpleDiffer implements IDiffer {
 
     @Override

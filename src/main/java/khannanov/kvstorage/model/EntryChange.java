@@ -8,20 +8,24 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicUpdate
 @DynamicInsert
-@Table(appliesTo = "entry_changes")
+@Entity
+@Table(appliesTo = "kvs.entry_changes")
 public class EntryChange {
     public static String ID = "id";
     public static String KEY = "key";
     public static String VALUE = "value";
     public static String CREATED = "created";
     @GeneratedValue
+    @Id
     private int id;
     @NonNull
     private String key;

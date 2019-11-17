@@ -10,6 +10,7 @@ import khannanov.kvstorage.repository.EntryRepository;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,16 +38,19 @@ public class StorageService implements IStorageService {
         this.entryChangeRepository = entryChangeRepository;
     }
 
+    @Transactional
     @Override
     public Entry getEntry(String key) {
         return entryRepository.getByKey(key);
     }
 
+    @Transactional
     @Override
     public List<Entry> getEntries() {
         return entryRepository.getEntries();
     }
 
+    @Transactional
     @Override
     public EntryHistory getHistory(String key) {
         Entry entry = entryRepository.getByKey(key);
@@ -56,11 +60,13 @@ public class StorageService implements IStorageService {
         return new EntryHistory(key, history);
     }
 
+    @Transactional
     @Override
     public void add(Entry entry) {
         entryRepository.saveOrUpdate(entry);
     }
 
+    @Transactional
     @Override
     public void delete(String key) {
         entryRepository.delete(entryRepository.getByKey(key));

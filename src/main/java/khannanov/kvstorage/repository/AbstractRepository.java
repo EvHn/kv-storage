@@ -2,7 +2,9 @@ package khannanov.kvstorage.repository;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public abstract class AbstractRepository<Data> implements IRepository<Data> {
 
     protected SessionFactory sessionFactory;

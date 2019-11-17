@@ -1,6 +1,5 @@
 create table kvs.entries (
-      id integer not null primary key
-    , key varchar(100) not null
+      key varchar(100) not null primary key
     , value varchar(4000) not null
     , changed date not null
 );

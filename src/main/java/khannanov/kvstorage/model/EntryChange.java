@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +18,7 @@ import javax.persistence.Id;
 @DynamicUpdate
 @DynamicInsert
 @Entity
-@Table(appliesTo = "kvs.entry_changes")
+@Table(name = "entry_changes")
 public class EntryChange {
     public static String ID = "id";
     public static String KEY = "key";

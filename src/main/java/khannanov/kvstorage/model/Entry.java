@@ -5,10 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +16,7 @@ import javax.persistence.Id;
 @DynamicUpdate
 @DynamicInsert
 @Entity
-@Table(appliesTo = "entries")
+@Table(name = "entries")
 public class Entry {
     public static String KEY = "key";
     public static String VALUE = "value";

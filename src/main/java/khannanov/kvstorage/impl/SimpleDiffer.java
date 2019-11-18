@@ -22,9 +22,9 @@ public class SimpleDiffer implements IDiffer {
     public Entry apply(Entry entry, EntryChange entryChange) {
         Entry lastEntry = new Entry();
         if(entry.getKey().equals(entryChange.getKey())) {
-            entry.setKey(entryChange.getKey());
-            entry.setValue(entryChange.getValue());
-            entry.setChanged(entryChange.getCreated());
+            lastEntry.setKey(entryChange.getKey());
+            lastEntry.setValue(entryChange.getValue());
+            lastEntry.setChanged(entryChange.getCreated());
         }
         return lastEntry;
     }

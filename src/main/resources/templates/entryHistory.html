@@ -6,17 +6,17 @@
 </head>
 <body>
 <label></label>
-<form method="POST" th:action="@{/history}" th:object="${key}">
-    <label >show history</label>
-    <input type="text" th:field="${key}"/>
-    <br/>
-    <input type="submit" value="show"/>
-</form>
 <div>
     <label>History key: </label>
-    <span th:text="${entryHistory.key}"></span>
+    <span th:text="${entry.key}"></span>
+    <br/>
+    <label>Current value: </label>
+    <span th:text="${entry.value}"></span>
+    <br/>
+    <label>Previous values: </label>
     <div th:each="value : ${entryHistory.values}">
         <span th:text="${value}"></span>
+        <br/>
     </div>
 </div>
 </body>

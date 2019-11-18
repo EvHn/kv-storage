@@ -1,5 +1,6 @@
 package khannanov.kvstorage.repository;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,12 +26,18 @@ public abstract class AbstractRepository<Data> implements IRepository<Data> {
     }
 
     @Override
+    public boolean exist(Data data) {
+        return sessionFactory.getCurrentSession().contains(data);
+    }
+
+    @Override
     public void delete(Data date) {
         sessionFactory.getCurrentSession().delete(date);
     }
 
     @Override
-    public void edit(Data date) {
-        sessionFactory.getCurrentSession().update(date);
+    public void update(Data date) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(session.merge(date));
     }
 }

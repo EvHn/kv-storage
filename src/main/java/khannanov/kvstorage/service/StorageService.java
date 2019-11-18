@@ -12,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Getter
@@ -55,15 +56,24 @@ public class StorageService implements IStorageService {
     public EntryHistory getHistory(String key) {
         Entry entry = entryRepository.getByKey(key);
         List<EntryChange> entryChanges = entryChangeRepository.getByKey(key);
-        List<String> history =
-                entryChanges.stream().map(ec -> differ.apply(entry, ec).getValue()).collect(Collectors.toList());
+        List<String> history = new LinkedList<>();
+        for(EntryChange ec : entryChanges) {
+            entry = differ.apply(entry, ec);
+            history.add(entry.getValue());
+        }
         return new EntryHistory(key, history);
     }
 
     @Transactional
     @Override
     public void add(Entry entry) {
-        entryRepository.saveOrUpdate(entry);
+        Entry oldEntry = entryRepository.getByKey(entry.getKey());
+        if(oldEntry != null) {
+            entryChangeRepository.save(differ.calc(oldEntry, entry));
+            entryRepository.update(entry);
+            return;
+        }
+        entryRepository.save(entry);
     }
 
     @Transactional

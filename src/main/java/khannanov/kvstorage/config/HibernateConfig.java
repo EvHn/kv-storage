@@ -18,6 +18,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = "khannanov.kvstorage.repository")
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties")
+@PropertySource(value = "classpath:hibernate.properties")
 public class HibernateConfig {
 
     static final String HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";

@@ -11,5 +11,5 @@ import java.util.List;
 @NoArgsConstructor
 public class EntryHistory {
     private String key;
-    private List<String> values;
+    private List<Pair> values;
 }

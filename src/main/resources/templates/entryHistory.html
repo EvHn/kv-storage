@@ -12,10 +12,12 @@
     <br/>
     <label>Current value: </label>
     <span th:text="${entry.value}"></span>
+    <span th:text="${entry.changed}"></span>
     <br/>
     <label>Previous values: </label>
     <div th:each="value : ${entryHistory.values}">
-        <span th:text="${value}"></span>
+        <span th:text="${value.value}"></span>
+        <span th:text="${value.created}"></span>
         <br/>
     </div>
 </div>

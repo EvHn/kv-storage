@@ -22,7 +22,7 @@ public class EntryChangeRepository extends AbstractRepository<EntryChange> {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<EntryChange> cq = cb.createQuery(EntryChange.class);
         Root<EntryChange> root = cq.from(EntryChange.class);
-        cq.select(root).where(cb.like(root.get(EntryChange.KEY), key)).orderBy(cb.asc(root.get(EntryChange.CREATED)));
+        cq.select(root).where(cb.like(root.get(EntryChange.KEY), key)).orderBy(cb.desc(root.get(EntryChange.CREATED)));
 
         return session.createQuery(cq).getResultList();
     }

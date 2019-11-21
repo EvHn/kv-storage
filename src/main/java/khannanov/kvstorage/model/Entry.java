@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -24,5 +25,5 @@ public class Entry {
     @Id
     private String key;
     private String value;
-    private String changed;
+    private Date changed;
 }

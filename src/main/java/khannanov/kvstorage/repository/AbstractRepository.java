@@ -21,11 +21,6 @@ public abstract class AbstractRepository<Data> implements IRepository<Data> {
     }
 
     @Override
-    public void saveOrUpdate(Data date) {
-        sessionFactory.getCurrentSession().saveOrUpdate(date);
-    }
-
-    @Override
     public boolean exist(Data data) {
         return sessionFactory.getCurrentSession().contains(data);
     }

@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -31,5 +32,5 @@ public class EntryChange {
     private String key;
     @NonNull
     private String value;
-    private String created;
+    private Date created;
 }

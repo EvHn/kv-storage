@@ -5,6 +5,7 @@ import khannanov.kvstorage.impl.SimpleDiffer;
 import khannanov.kvstorage.model.Entry;
 import khannanov.kvstorage.model.EntryChange;
 import khannanov.kvstorage.model.EntryHistory;
+import khannanov.kvstorage.model.Pair;
 import khannanov.kvstorage.repository.EntryChangeRepository;
 import khannanov.kvstorage.repository.EntryRepository;
 import lombok.Getter;
@@ -56,10 +57,10 @@ public class StorageService implements IStorageService {
     public EntryHistory getHistory(String key) {
         Entry entry = entryRepository.getByKey(key);
         List<EntryChange> entryChanges = entryChangeRepository.getByKey(key);
-        List<String> history = new LinkedList<>();
+        List<Pair> history = new LinkedList<>();
         for(EntryChange ec : entryChanges) {
             entry = differ.apply(entry, ec);
-            history.add(entry.getValue());
+            history.add(new Pair(entry.getValue(), entry.getChanged()));
         }
         return new EntryHistory(key, history);
     }

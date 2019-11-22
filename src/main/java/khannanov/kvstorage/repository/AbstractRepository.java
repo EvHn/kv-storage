@@ -8,12 +8,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public abstract class AbstractRepository<Data> implements IRepository<Data> {
 
-    protected SessionFactory sessionFactory;
-
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    protected SessionFactory sessionFactory;
 
     @Override
     public void save(Data data) {

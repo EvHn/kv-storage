@@ -13,12 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/history")
 public class EntryHistoryController {
-    private IStorageService storageService;
 
     @Autowired
-    public void setStorageService(IStorageService storageService) {
-        this.storageService = storageService;
-    }
+    private IStorageService storageService;
 
     @GetMapping("/{key}")
     public String setHistory(Model model, @PathVariable("key") String key) {

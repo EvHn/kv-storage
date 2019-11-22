@@ -8,12 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    private IStorageService storageService;
 
     @Autowired
-    public void setStorageService(IStorageService storageService) {
-        this.storageService = storageService;
-    }
+    private IStorageService storageService;
 
     @GetMapping("/")
     public String getEntries(Model model) {

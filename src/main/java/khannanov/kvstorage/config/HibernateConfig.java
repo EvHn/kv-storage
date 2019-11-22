@@ -29,12 +29,8 @@ public class HibernateConfig {
     static final String JDBC_URI = "jdbc.url";
     static final String JDBC_USERNAME = "jdbc.username";
     static final String JDBC_PASSWORD = "jdbc.password";
-    private Environment environment;
-
     @Autowired
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
+    private Environment environment;
 
     @Bean
     public LocalSessionFactoryBean sessionFactory() {

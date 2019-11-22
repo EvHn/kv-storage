@@ -21,24 +21,12 @@ import java.util.List;
 @Getter
 public class StorageService implements IStorageService {
 
+    @Autowired
     private EntryRepository entryRepository;
+    @Autowired
     private EntryChangeRepository entryChangeRepository;
+    @Autowired
     private IDiffer differ;
-
-    @Autowired
-    public void setDiffer(SimpleDiffer differ) {
-        this.differ = differ;
-    }
-
-    @Autowired
-    public void setEntryRepository(EntryRepository entryRepository) {
-        this.entryRepository = entryRepository;
-    }
-
-    @Autowired
-    public void setEntryChangeRepository(EntryChangeRepository entryChangeRepository) {
-        this.entryChangeRepository = entryChangeRepository;
-    }
 
     @Transactional
     @Override

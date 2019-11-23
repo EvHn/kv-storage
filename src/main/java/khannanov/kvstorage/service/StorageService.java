@@ -1,24 +1,20 @@
 package khannanov.kvstorage.service;
 
 import khannanov.kvstorage.impl.IDiffer;
-import khannanov.kvstorage.impl.SimpleDiffer;
 import khannanov.kvstorage.model.Entry;
 import khannanov.kvstorage.model.EntryChange;
 import khannanov.kvstorage.model.EntryHistory;
 import khannanov.kvstorage.model.Pair;
 import khannanov.kvstorage.repository.EntryChangeRepository;
 import khannanov.kvstorage.repository.EntryRepository;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
-@Getter
 public class StorageService implements IStorageService {
 
     @Autowired

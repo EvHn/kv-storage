@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/new")
 public class EntryController {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(EntryController.class);
+
     @Autowired
     private IStorageService storageService;
 

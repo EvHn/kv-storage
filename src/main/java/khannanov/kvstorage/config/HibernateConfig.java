@@ -17,18 +17,18 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages = "khannanov.kvstorage.repository")
 @EnableTransactionManagement
-@PropertySource(value = "classpath:db.properties")
-@PropertySource(value = "classpath:hibernate.properties")
+@PropertySource({"classpath:db.properties", "classpath:hibernate.properties"})
 public class HibernateConfig {
 
-    static final String HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
-    static final String HIBERNATE_DIALECT = "hibernate.dialect";
-    static final String HIBERNATE_SHOW_SQL = "hibernate.show_sql";
-    static final String HIBERNATE_TEMP_USE_JDBC_METADATE_DEFAULTS =  "hibernate.temp.use_jdbc_metadata_defaults";
-    static final String JDBC_DRIVER_CLASS_NAME = "jdbc.driverClassName";
-    static final String JDBC_URI = "jdbc.url";
-    static final String JDBC_USERNAME = "jdbc.username";
-    static final String JDBC_PASSWORD = "jdbc.password";
+    private static final String HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
+    private static final String HIBERNATE_DIALECT = "hibernate.dialect";
+    private static final String HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+    private static final String HIBERNATE_TEMP_USE_JDBC_METADATE_DEFAULTS =
+            "hibernate.temp.use_jdbc_metadata_defaults";
+    private static final String JDBC_DRIVER_CLASS_NAME = "jdbc.driverClassName";
+    private static final String JDBC_URI = "jdbc.url";
+    private static final String JDBC_USERNAME = "jdbc.username";
+    private static final String JDBC_PASSWORD = "jdbc.password";
     @Autowired
     private Environment environment;
 

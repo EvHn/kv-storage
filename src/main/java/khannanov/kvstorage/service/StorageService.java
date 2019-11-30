@@ -7,13 +7,17 @@ import khannanov.kvstorage.service.model.EntryHistory;
 import khannanov.kvstorage.web.model.Pair;
 import khannanov.kvstorage.repository.IEntryChangeRepository;
 import khannanov.kvstorage.repository.IEntryRepository;
+import org.apache.tomcat.util.http.fileupload.util.Streams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StorageService implements IStorageService {
@@ -41,11 +45,9 @@ public class StorageService implements IStorageService {
     @Override
     public EntryHistory getHistory(Entry entry) {
         Iterable<EntryChange> entryChanges = entryChangeRepository.getByEntry(entry);
-        List<Pair> history = new LinkedList<>();
-        for(EntryChange ec : entryChanges) {
-            entry = differ.apply(entry, ec);
-            history.add(new Pair(entry.getValue(), entry.getChanged()));
-        }
+        List<Pair> history = Stream.iterate(differApply(entry, entryChanges.iterator()), e -> differApply(e))
+                .filter(Objects::nonNull).map(e -> new Pair(e.getKey().getValue(), e.getKey().getChanged()))
+                .collect(Collectors.toList());
         return new EntryHistory(entry.getKey(), history);
     }
 
@@ -67,4 +69,10 @@ public class StorageService implements IStorageService {
         entryRepository.delete(entry);
     }
 
+    private Map.Entry<Entry, Iterator<EntryChange>> differApply(Map.Entry<Entry, Iterator<EntryChange>> e) {
+        return e != null ? differApply(e.getKey(), e.getValue()) : null;
+    }
+    private Map.Entry<Entry, Iterator<EntryChange>> differApply(Entry entry, Iterator<EntryChange> iterator) {
+        return iterator.hasNext() ? new HashMap.SimpleEntry<>(differ.apply(entry, iterator.next()), iterator) : null;
+    }
 }

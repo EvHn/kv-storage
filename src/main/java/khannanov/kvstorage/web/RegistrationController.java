@@ -1,6 +1,5 @@
 package khannanov.kvstorage.web;
 
-import khannanov.kvstorage.model.Entry;
 import khannanov.kvstorage.repository.IUserRepository;
 import khannanov.kvstorage.web.model.Registration;
 import org.springframework.beans.factory.annotation.Autowired;

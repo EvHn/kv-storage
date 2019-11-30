@@ -1,8 +1,5 @@
 package khannanov.kvstorage.config;
 
-import khannanov.kvstorage.model.Entry;
-import khannanov.kvstorage.model.EntryChange;
-import khannanov.kvstorage.model.User;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -27,7 +24,7 @@ public class JpaConfig {
     @Autowired
     private Environment environment;
 
-    @Bean(name="entityManagerFactory")
+    @Bean(name = "entityManagerFactory")
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setPackagesToScan("khannanov.kvstorage");

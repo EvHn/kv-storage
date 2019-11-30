@@ -1,4 +1,4 @@
-package khannanov.kvstorage.impl;
+package khannanov.kvstorage.service.impl;
 
 import khannanov.kvstorage.model.Entry;
 import khannanov.kvstorage.model.EntryChange;

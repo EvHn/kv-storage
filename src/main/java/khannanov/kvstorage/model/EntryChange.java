@@ -10,15 +10,17 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Date;
 
+
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicUpdate
 @DynamicInsert
-@Entity
 @Table(name = "entry_changes")
 public class EntryChange {
     public static String ID = "id";
@@ -27,9 +29,10 @@ public class EntryChange {
     public static String CREATED = "created";
     @GeneratedValue
     @Id
-    private int id;
+    private Long id;
     @NonNull
-    private String key;
+    @ManyToOne
+    private Entry entry;
     @NonNull
     private String value;
     private Date created;

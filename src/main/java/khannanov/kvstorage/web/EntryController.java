@@ -3,12 +3,15 @@ package khannanov.kvstorage.web;
 import khannanov.kvstorage.model.Entry;
 
 import khannanov.kvstorage.service.IStorageService;
+import khannanov.kvstorage.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/new")
@@ -17,6 +20,8 @@ public class EntryController {
 
     @Autowired
     private IStorageService storageService;
+    @Autowired
+    private IUserService userService;
 
     @GetMapping("/entry")
     public String createState(Model model) {
@@ -25,9 +30,10 @@ public class EntryController {
     }
 
     @PostMapping
-    public String setEntry(Entry entry) {
+    public String setEntry(Entry entry, Principal principal) {
+        entry.setUser(userService.getUserByUsername(principal.getName()));
         storageService.add(entry);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
 

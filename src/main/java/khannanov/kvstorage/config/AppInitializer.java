@@ -6,10 +6,11 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.Filter;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-    static final String UTF_8 = "UTF-8";
+    private static final String UTF_8 = "UTF-8";
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {HibernateConfig.class};
+        return new Class[0];
     }
 
     @Override

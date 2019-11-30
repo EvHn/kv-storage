@@ -1,4 +1,4 @@
-package khannanov.kvstorage.model;
+package khannanov.kvstorage.web.model;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

@@ -9,7 +9,7 @@
 <div th:each="entry : ${entries}">
     <span th:text="${entry.key}"></span>
     <span th:text="${entry.value}"></span>
-
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 </div>
 </body>
 </html>

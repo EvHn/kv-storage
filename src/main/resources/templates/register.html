@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<h1>Register</h1>
+<form method="POST" th:action="@{/register}" th:object="${registration}">
+    <label>Username: </label>
+    <input type="text" name="username" th:field="${registration.username}"/><br/>
+    <label>Password: </label>
+    <input type="password" name="password" th:field="${registration.password}"/><br/>
+    <input type="submit" value="Register"/>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+</form>
+</body>
+</html>

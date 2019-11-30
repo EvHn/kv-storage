@@ -1,14 +1,13 @@
 package khannanov.kvstorage.service;
 
 import khannanov.kvstorage.model.Entry;
-import khannanov.kvstorage.model.EntryHistory;
-
-import java.util.List;
+import khannanov.kvstorage.service.model.EntryHistory;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface IStorageService {
-    Entry getEntry(String key);
-    List<Entry> getEntries();
-    EntryHistory getHistory(String key);
+    Entry getEntry(UserDetails user, String key);
+    Iterable<Entry> getEntries(UserDetails user);
+    EntryHistory getHistory(Entry entry);
     void add(Entry entry);
-    void delete(String key);
+    void delete(Entry entry);
 }

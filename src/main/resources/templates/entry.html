@@ -13,6 +13,7 @@
     <input type="text" th:field="${entry.value}"/>
     <br/>
     <input type="submit" value="add new entry"/>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 </form>
 </body>
 </html>

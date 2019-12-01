@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/register", "/login").permitAll()
-                .antMatchers("/home/**", "/new/**", "/history/**").hasRole("USER")
+                .antMatchers("/home/**", "/new/entry", "/history/**").hasRole("USER")
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/home");
     }
 }

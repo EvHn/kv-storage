@@ -45,8 +45,8 @@ public class StorageService implements IStorageService {
     @Override
     public EntryHistory getHistory(Entry entry) {
         Iterable<EntryChange> entryChanges = entryChangeRepository.getByEntry(entry);
-        List<Pair> history = Stream.iterate(differApply(entry, entryChanges.iterator()), e -> differApply(e))
-                .filter(Objects::nonNull).map(e -> new Pair(e.getKey().getValue(), e.getKey().getChanged()))
+        List<Pair> history = Stream.iterate(differApply(entry, entryChanges.iterator()), Objects::nonNull,
+                e -> differApply(e)).map(e -> new Pair(e.getKey().getValue(), e.getKey().getChanged()))
                 .collect(Collectors.toList());
         return new EntryHistory(entry.getKey(), history);
     }

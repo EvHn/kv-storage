@@ -22,8 +22,8 @@ public class EntryHistoryController {
     @Autowired
     private IUserService userService;
 
-    @GetMapping(name = "/", value = "{key}")
-    public String setHistory(Model model, @RequestParam("key") String key, Principal principal) {
+    @GetMapping
+    public String setHistory(Model model, @RequestParam String key, Principal principal) {
         UserDetails user = userService.getUserByUsername(principal.getName());
         Entry entry = storageService.getEntry(user, key);
         model.addAttribute("entry", entry);

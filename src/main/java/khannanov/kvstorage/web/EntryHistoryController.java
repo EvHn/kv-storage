@@ -19,6 +19,7 @@ public class EntryHistoryController {
 
     @Autowired
     private IStorageService storageService;
+
     @Autowired
     private IUserService userService;
 

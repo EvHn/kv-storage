@@ -11,5 +11,4 @@ public class KvStorageApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KvStorageApplication.class, args);
 	}
-
 }

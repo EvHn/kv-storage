@@ -10,6 +10,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -18,7 +20,7 @@ import javax.sql.DataSource;
 @ComponentScan(basePackages = {"khannanov.kvstorage.repository",
         "khannanov.kvstorage.service", "khannanov.kvstorage.web"})
 @EntityScan(basePackages = {"khannanov.kvstorage.model"})
-@PropertySource("db.properties")
+@PropertySource("classpath:/db.properties")
 public class JpaConfig {
 
     @Autowired
@@ -43,4 +45,8 @@ public class JpaConfig {
         return dataSource;
     }
 
+     @Bean(name = "transactionManager")
+        public PlatformTransactionManager transactionManager() {
+            return new JpaTransactionManager();
+        }
 }

@@ -1,6 +1,6 @@
 package khannanov.kvstorage.web;
 
-import khannanov.kvstorage.repository.IUserRepository;
+import khannanov.kvstorage.service.IUserService;
 import khannanov.kvstorage.web.model.Registration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/register")
 public class RegistrationController {
     @Autowired
-    private IUserRepository userRepo;
+    private IUserService userService;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -26,7 +27,7 @@ public class RegistrationController {
 
     @PostMapping
     public String getLogin(Registration registration) {
-        userRepo.save(registration.toUser(passwordEncoder));
+        userService.addUser(registration.toUser(passwordEncoder));
         return "redirect:/login";
     }
 }

@@ -7,15 +7,15 @@ import khannanov.kvstorage.service.model.EntryHistory;
 import khannanov.kvstorage.web.model.Pair;
 import khannanov.kvstorage.repository.IEntryChangeRepository;
 import khannanov.kvstorage.repository.IEntryRepository;
-import org.apache.tomcat.util.http.fileupload.util.Streams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,8 +44,8 @@ public class StorageService implements IStorageService {
     @Transactional
     @Override
     public EntryHistory getHistory(Entry entry) {
-        Iterable<EntryChange> entryChanges = entryChangeRepository.getByEntry(entry);
-        List<Pair> history = Stream.iterate(differApply(entry, entryChanges.iterator()), Objects::nonNull,
+        Iterator<EntryChange> entryChanges = entryChangeRepository.getByEntry(entry).iterator();
+        List<Pair> history = Stream.iterate(differApply(entry, entryChanges), Objects::nonNull,
                 e -> differApply(e)).map(e -> new Pair(e.getKey().getValue(), e.getKey().getChanged()))
                 .collect(Collectors.toList());
         return new EntryHistory(entry.getKey(), history);
@@ -54,6 +54,7 @@ public class StorageService implements IStorageService {
     @Transactional
     @Override
     public void add(Entry entry) {
+        entry.setChanged(new Timestamp(System.currentTimeMillis()));
         if(entryRepository.existsById(entry.getKey())) {
             Entry oldEntry = entryRepository.getByUserAndKey(entry.getUser(), entry.getKey());
             entryChangeRepository.save(differ.calc(oldEntry, entry));

@@ -9,24 +9,24 @@ public class SimpleDiffer implements IDiffer {
 
     @Override
     public EntryChange calc(Entry oldEntry, Entry newEntry) {
-        EntryChange entryChange = new EntryChange();
         if(oldEntry.getKey().equals(newEntry.getKey())) {
-            entryChange.setEntry(oldEntry);
-            entryChange.setCreated(oldEntry.getChanged());
-            entryChange.setValue(oldEntry.getValue());
+            return EntryChange.builder()
+                    .entry(oldEntry)
+                    .created(oldEntry.getChanged())
+                    .value(oldEntry.getValue()).build();
         }
-        return entryChange;
+        return new EntryChange();
     }
 
     @Override
     public Entry apply(Entry entry, EntryChange entryChange) {
-        Entry lastEntry = new Entry();
         if(entry.getKey().equals(entryChange.getEntry().getKey())) {
-            lastEntry.setKey(entryChange.getEntry().getKey());
-            lastEntry.setValue(entryChange.getValue());
-            lastEntry.setChanged(entryChange.getCreated());
+            return Entry.builder()
+                    .key(entryChange.getEntry().getKey())
+                    .value(entryChange.getValue())
+                    .changed(entryChange.getCreated()).build();
         }
-        return lastEntry;
+        return new Entry();
     }
 
 }
